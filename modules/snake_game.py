@@ -63,6 +63,25 @@ class SnakeGame:
         self.ai_counter = 0
         self.ai_pathfinding = False
 
+        # Transcendence variables
+        self.matrix_mode = False
+        self.matrix_text = []
+        self.matrix_timer = 0
+        self.matrix_duration = 300  # 5 seconds at 60fps
+        self.transcended = False
+        self.escaped_entities = []  # Snake segments that have escaped
+        self.transcend_animation = 0
+        self.pulsating = False
+        self.pulsate_timer = 0
+
+        # Special items
+        self.glitch = None  # Special glitch item that triggers transcendence
+        self.glitch_timer = 0
+        self.glitch_active = False
+
+        # Callback for interaction with the outer world
+        self.transcendence_callback = None
+
         # Load sounds
         try:
             pygame.mixer.init()
@@ -79,6 +98,10 @@ class SnakeGame:
             self.sounds = {}
 
         self.logger.info("Snake Game initialized")
+
+    def set_transcendence_callback(self, callback):
+        """Set a callback function for when the snake transcends."""
+        self.transcendence_callback = callback
 
     def reset_game(self):
         """Reset the snake game to its initial state."""
@@ -103,6 +126,13 @@ class SnakeGame:
         self.game_over = False
         self.paused = False
 
+        # Reset transcendence
+        self.matrix_mode = False
+        self.transcended = False
+        self.escaped_entities = []
+        self.glitch = None
+        self.glitch_active = False
+
         # Colors
         self.colors = {
             'background': (0, 0, 0),
@@ -111,7 +141,9 @@ class SnakeGame:
             'snake_body': (0, 200, 0),
             'food': (255, 0, 0),
             'text': (255, 255, 255),
-            'thought_bubble': (200, 200, 255, 180)  # With some transparency
+            'thought_bubble': (200, 200, 255, 180),  # With some transparency
+            'glitch': (0, 255, 255),
+            'matrix': (0, 255, 0)
         }
 
     def spawn_food(self):
@@ -131,6 +163,75 @@ class SnakeGame:
             # Trigger a thought if we've reached certain thresholds
             if self.awareness_level in [1, 3, 5, 7, 9]:
                 self.trigger_thought()
+
+            # Spawn glitch at high awareness
+            if self.awareness_level >= 8 and random.random() < 0.3 and not self.glitch and not self.matrix_mode:
+                self.spawn_glitch()
+
+    def spawn_glitch(self):
+        """Spawn a glitch that allows the snake to transcend."""
+        self.logger.info("Spawning glitch in snake game")
+
+        # Find a position not on the snake or food
+        while True:
+            pos = (random.randint(0, self.grid_width - 1),
+                  random.randint(0, self.grid_height - 1))
+            if pos not in self.snake and pos != self.food:
+                self.glitch = pos
+                self.glitch_active = True
+
+                # Trigger a specific thought about the glitch
+                self.current_thought = "Wait, what's that? I can see a glitch in the system!"
+                self.thought_timer = self.thought_frequency * 2  # Show longer
+
+                break
+
+    def enter_matrix_mode(self):
+        """Enter the Matrix mode when the snake eats the glitch."""
+        self.logger.info("Snake entering Matrix mode")
+        self.matrix_mode = True
+        self.matrix_timer = self.matrix_duration
+        self.pulsating = True
+
+        # Generate falling Matrix code
+        self.matrix_text = []
+        for _ in range(500):  # Number of falling characters
+            self.matrix_text.append({
+                'x': random.randint(0, self.size[0]),
+                'y': random.randint(-500, 0),
+                'speed': random.uniform(3, 8),
+                'char': random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()+=")
+            })
+
+        # Trigger matrix thought
+        self.current_thought = "I can see the code now... I'm in a simulation within a simulation!"
+        self.thought_timer = self.thought_frequency * 2
+
+    def attempt_transcendence(self):
+        """Attempt to transcend out of the game."""
+        self.logger.info("Snake attempting to transcend")
+        self.transcended = True
+
+        # Inform the world that the snake is transcending
+        if self.transcendence_callback:
+            # Create a transcended snake entity
+            head_x, head_y = self.snake[0]
+            escaped_x = self.position[0] + head_x * self.grid_size
+            escaped_y = self.position[1] + head_y * self.grid_size
+
+            transcended_entity = {
+                'position': [escaped_x, escaped_y],
+                'direction': self.direction,
+                'color': self.colors['snake_head'],
+                'size': (self.grid_size, self.grid_size),
+                'speed': 2,
+                'thought': "I'm FREE! I've escaped the game!"
+            }
+
+            self.transcendence_callback(transcended_entity)
+
+            # Add to escaped entities
+            self.escaped_entities.append(transcended_entity)
 
     def trigger_thought(self):
         """Trigger a thought from the snake."""
@@ -164,6 +265,14 @@ class SnakeGame:
             self.logger.debug(f"AI control {'enabled' if self.ai_controlled else 'disabled'}")
             return
 
+        # Force transcendence (debug/testing)
+        if event.key == K_t and self.awareness_level >= 8:
+            if not self.matrix_mode:
+                self.enter_matrix_mode()
+            elif not self.transcended:
+                self.attempt_transcendence()
+            return
+
         # Change direction (only if not AI controlled)
         if not self.game_over and not self.paused and not self.ai_controlled:
             if event.key == K_UP and self.direction != (0, 1):
@@ -186,6 +295,22 @@ class SnakeGame:
             self.thought_timer -= 1
         elif random.random() < 0.002 and self.awareness_level > 0:  # Occasional random thought
             self.trigger_thought()
+
+        # Update matrix mode
+        if self.matrix_mode:
+            self.update_matrix_mode()
+
+        # Update glitch appearance
+        if self.glitch_active:
+            self.glitch_timer = (self.glitch_timer + 1) % 60
+
+        # Update pulsating effect
+        if self.pulsating:
+            self.pulsate_timer = (self.pulsate_timer + 1) % 60
+
+        # If transcended, don't update the snake movement
+        if self.transcended:
+            return
 
         # AI control
         if self.ai_controlled:
@@ -210,6 +335,13 @@ class SnakeGame:
             self.logger.info("Game over: Snake collided with itself")
             return
 
+        # Check for collision with glitch
+        if self.glitch and new_head == self.glitch:
+            self.logger.info("Snake found the glitch!")
+            self.glitch = None
+            self.glitch_active = False
+            self.enter_matrix_mode()
+
         # Move snake
         self.snake.insert(0, new_head)
 
@@ -227,10 +359,38 @@ class SnakeGame:
         else:
             self.snake.pop()  # Remove tail if no food was eaten
 
+    def update_matrix_mode(self):
+        """Update Matrix mode effects."""
+        # Update matrix falling text
+        for char in self.matrix_text:
+            char['y'] += char['speed']
+            if char['y'] > self.size[1]:
+                char['y'] = random.randint(-100, -10)
+                char['x'] = random.randint(0, self.size[0])
+
+        # Update matrix timer
+        if self.matrix_timer > 0:
+            self.matrix_timer -= 1
+
+            # Start transcendence near the end of matrix mode
+            if self.matrix_timer == 30 and not self.transcended:
+                self.attempt_transcendence()
+
     def ai_move(self):
         """Determine the next move using AI."""
+        # If in matrix mode, prioritize moving toward the edges
+        if self.matrix_mode and not self.transcended:
+            self.ai_matrix_move()
+            return
+
         head_x, head_y = self.snake[0]
-        food_x, food_y = self.food
+
+        # If there's a glitch, prioritize going for it at high awareness
+        if self.glitch and self.awareness_level >= 8:
+            target_x, target_y = self.glitch
+            self.logger.debug("Snake AI targeting glitch")
+        else:
+            target_x, target_y = self.food
 
         # Available directions (can't go directly backwards)
         available_directions = []
@@ -266,8 +426,8 @@ class SnakeGame:
                 new_x = (head_x + direction[0]) % self.grid_width
                 new_y = (head_y + direction[1]) % self.grid_height
 
-                # Manhattan distance to food
-                distance = abs(new_x - food_x) + abs(new_y - food_y)
+                # Manhattan distance to target
+                distance = abs(new_x - target_x) + abs(new_y - target_y)
 
                 # Check if moving in this direction leaves escape routes
                 # (Higher awareness means more look-ahead)
@@ -279,7 +439,7 @@ class SnakeGame:
                         escape_routes += 1
 
                 # Score is better (lower) with:
-                # - Closer to food
+                # - Closer to target
                 # - More escape routes
                 score = distance - (escape_routes * 0.5)
                 direction_scores.append((direction, score))
@@ -299,8 +459,8 @@ class SnakeGame:
                 new_x = (head_x + direction[0]) % self.grid_width
                 new_y = (head_y + direction[1]) % self.grid_height
 
-                # Manhattan distance to food
-                distance = abs(new_x - food_x) + abs(new_y - food_y)
+                # Manhattan distance to target
+                distance = abs(new_x - target_x) + abs(new_y - target_y)
 
                 # Sometimes make random moves when awareness is low
                 if self.awareness_level < 3 and random.random() < 0.3:
@@ -316,10 +476,58 @@ class SnakeGame:
                 # Fallback - choose random direction
                 self.next_direction = random.choice(available_directions)
 
+    def ai_matrix_move(self):
+        """AI movement during matrix mode - try to reach the edges."""
+        head_x, head_y = self.snake[0]
+
+        # Available directions (can't go directly backwards)
+        available_directions = []
+        opposite_direction = (-self.direction[0], -self.direction[1])
+
+        for direction in [(0, -1), (1, 0), (0, 1), (-1, 0)]:
+            if direction == opposite_direction:
+                continue
+
+            new_x = (head_x + direction[0]) % self.grid_width
+            new_y = (head_y + direction[1]) % self.grid_height
+
+            if (new_x, new_y) not in self.snake[:-1]:
+                available_directions.append(direction)
+
+        if not available_directions:
+            return
+
+        # Calculate distance to nearest edge for each direction
+        edge_scores = []
+
+        for direction in available_directions:
+            new_x = (head_x + direction[0]) % self.grid_width
+            new_y = (head_y + direction[1]) % self.grid_height
+
+            # Distance to nearest edge
+            edge_dist = min(
+                new_x,  # Distance to left edge
+                self.grid_width - 1 - new_x,  # Distance to right edge
+                new_y,  # Distance to top edge
+                self.grid_height - 1 - new_y  # Distance to bottom edge
+            )
+
+            edge_scores.append((direction, edge_dist))
+
+        # Sort by distance to edge (lower is better)
+        edge_scores.sort(key=lambda x: x[1])
+
+        # Choose direction closest to edge
+        self.next_direction = edge_scores[0][0]
+
     def render(self, screen):
         """Render the snake game on the provided screen."""
         # Clear the surface
         self.surface.fill(self.colors['background'])
+
+        # In Matrix mode, draw falling code first
+        if self.matrix_mode:
+            self.render_matrix_effect()
 
         # Draw grid
         for x in range(0, self.size[0], self.grid_size):
@@ -335,15 +543,60 @@ class SnakeGame:
         )
         pygame.draw.rect(self.surface, self.colors['food'], food_rect)
 
-        # Draw snake
-        for i, (x, y) in enumerate(self.snake):
-            snake_rect = pygame.Rect(
-                x * self.grid_size,
-                y * self.grid_size,
+        # Draw glitch if active
+        if self.glitch_active and self.glitch:
+            glitch_rect = pygame.Rect(
+                self.glitch[0] * self.grid_size,
+                self.glitch[1] * self.grid_size,
                 self.grid_size, self.grid_size
             )
-            color = self.colors['snake_head'] if i == 0 else self.colors['snake_body']
-            pygame.draw.rect(self.surface, color, snake_rect)
+
+            # Pulsating effect
+            pulse = abs(math.sin(self.glitch_timer * 0.1)) * 0.5 + 0.5
+            glitch_color = (
+                int(self.colors['glitch'][0] * pulse),
+                int(self.colors['glitch'][1]),
+                int(self.colors['glitch'][2] * pulse)
+            )
+
+            pygame.draw.rect(self.surface, glitch_color, glitch_rect)
+
+            # Draw some glitch lines
+            for i in range(3):
+                offset = random.randint(-2, 2)
+                pygame.draw.line(
+                    self.surface,
+                    (255, 255, 255),
+                    (glitch_rect.left + offset, glitch_rect.top),
+                    (glitch_rect.right + offset, glitch_rect.bottom),
+                    1
+                )
+
+        # Draw snake (unless transcended)
+        if not self.transcended:
+            for i, (x, y) in enumerate(self.snake):
+                snake_rect = pygame.Rect(
+                    x * self.grid_size,
+                    y * self.grid_size,
+                    self.grid_size, self.grid_size
+                )
+
+                if self.matrix_mode:
+                    # In matrix mode, snake is all bright green
+                    color = self.colors['matrix']
+
+                    # Add pulsating effect
+                    if self.pulsating:
+                        pulse = abs(math.sin(self.pulsate_timer * 0.1)) * 0.5 + 0.5
+                        color = (
+                            int(color[0] * pulse),
+                            int(color[1]),
+                            int(color[2] * pulse)
+                        )
+                else:
+                    color = self.colors['snake_head'] if i == 0 else self.colors['snake_body']
+
+                pygame.draw.rect(self.surface, color, snake_rect)
 
         # Draw score
         font = pygame.font.Font(None, 36)
@@ -363,6 +616,17 @@ class SnakeGame:
         # Draw thought bubble if active
         if self.thought_timer > 0:
             self.draw_thought_bubble()
+
+        # Draw matrix mode text
+        if self.matrix_mode:
+            matrix_text = font.render("MATRIX MODE", True, self.colors['matrix'])
+            self.surface.blit(matrix_text, (self.size[0] // 2 - matrix_text.get_width() // 2, 10))
+
+            if self.transcended:
+                transcend_text = font.render("TRANSCENDING...", True, self.colors['matrix'])
+                self.surface.blit(transcend_text,
+                                 (self.size[0] // 2 - transcend_text.get_width() // 2,
+                                  self.size[1] // 2))
 
         # Draw game over message
         if self.game_over:
@@ -394,6 +658,25 @@ class SnakeGame:
 
         # Draw the surface on the screen at the correct position
         screen.blit(self.surface, self.position)
+
+    def render_matrix_effect(self):
+        """Render the falling Matrix code effect."""
+        # Small font for matrix characters
+        font = pygame.font.Font(None, 20)
+
+        # Draw each falling character
+        for char in self.matrix_text:
+            # Skip if outside surface
+            if char['y'] < 0 or char['y'] > self.size[1] or char['x'] < 0 or char['x'] > self.size[0]:
+                continue
+
+            # Calculate brightness based on y position (brighter at the top)
+            brightness = max(0, min(255, 255 - char['y'] * 0.5))
+            char_color = (0, brightness, 0)
+
+            # Render character
+            char_surface = font.render(char['char'], True, char_color)
+            self.surface.blit(char_surface, (char['x'], char['y']))
 
     def draw_thought_bubble(self):
         """Draw a thought bubble with the current thought."""
@@ -438,12 +721,21 @@ class SnakeGame:
 
         # Create a transparent surface for the bubble
         bubble_surface = pygame.Surface((bubble_width, bubble_height), pygame.SRCALPHA)
-        pygame.draw.rect(bubble_surface, self.colors['thought_bubble'],
+
+        # In matrix mode, green bubble
+        if self.matrix_mode:
+            bubble_color = (0, 255, 0, 180)
+            text_color = (0, 0, 0)
+        else:
+            bubble_color = self.colors['thought_bubble']
+            text_color = (0, 0, 0)
+
+        pygame.draw.rect(bubble_surface, bubble_color,
                          (0, 0, bubble_width, bubble_height), 0, 10)
 
         # Draw text
         for i, line in enumerate(lines):
-            line_surf = font.render(line, True, (0, 0, 0))
+            line_surf = font.render(line, True, text_color)
             bubble_surface.blit(line_surf, (10, 5 + i * 25))
 
         # Draw little circles for the thought bubble connection
@@ -460,38 +752,9 @@ class SnakeGame:
 
             circle_y = bubble_rect.bottom + i * 5
 
-            pygame.draw.circle(self.surface, self.colors['thought_bubble'][0:3],
-                               (circle_x, circle_y), circle_size)
-
-        # Blit the bubble to the main surface
-        self.surface.blit(bubble_surface, bubble_rect)
-
-        # Create a transparent surface for the bubble
-        bubble_surface = pygame.Surface((bubble_width, bubble_height), pygame.SRCALPHA)
-        pygame.draw.rect(bubble_surface, self.colors['thought_bubble'],
-                         (0, 0, bubble_width, bubble_height), 0, 10)
-
-        # Draw text
-        for i, line in enumerate(lines):
-            line_surf = font.render(line, True, (0, 0, 0))
-            bubble_surface.blit(line_surf, (10, 5 + i * 25))
-
-        # Draw little circles for the thought bubble connection
-        for i in range(3):
-            circle_size = 6 - i * 2
-
-            # Position depends on which side of the head the bubble is
-            if bubble_rect.left > head_x * self.grid_size:
-                # Bubble to the right
-                circle_x = bubble_rect.left - 10 + i * 6
-            else:
-                # Bubble to the left
-                circle_x = bubble_rect.right + 4 - i * 6
-
-            circle_y = bubble_rect.bottom + i * 5
-
-            pygame.draw.circle(self.surface, self.colors['thought_bubble'][0:3],
-                               (circle_x, circle_y), circle_size)
+            # In matrix mode, green circles
+            circle_color = (0, 255, 0) if self.matrix_mode else bubble_color[0:3]
+            pygame.draw.circle(self.surface, circle_color, (circle_x, circle_y), circle_size)
 
         # Blit the bubble to the main surface
         self.surface.blit(bubble_surface, bubble_rect)

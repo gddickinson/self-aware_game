@@ -688,3 +688,257 @@
 2025-03-02 19:02:23,659 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
 2025-03-02 19:02:23,659 - Character-Alex - DEBUG - New target: [794, 622]
 2025-03-02 19:02:24,064 - SelfAwareGame - INFO - Shutting down
+2025-03-02 19:09:10,202 - SelfAwareGame - INFO - Initializing Self-Aware Game
+2025-03-02 19:09:10,772 - GameWorld - INFO - Initializing game world: 1200x800
+2025-03-02 19:09:10,772 - GameWorld - INFO - Game world initialized
+2025-03-02 19:09:10,772 - SnakeGame - INFO - Initializing Snake Game
+2025-03-02 19:09:10,773 - SnakeGame - INFO - Resetting snake game
+2025-03-02 19:09:10,776 - SnakeGame - DEBUG - Loaded snake game sounds
+2025-03-02 19:09:10,777 - SnakeGame - INFO - Snake Game initialized
+2025-03-02 19:09:10,777 - GameWorld - INFO - Adding building: Snake Game at (100, 100)
+2025-03-02 19:09:10,777 - Character-Alex - INFO - Initializing character: Alex
+2025-03-02 19:09:10,778 - Character-Alex - INFO - Loaded character sprite sheet
+2025-03-02 19:09:10,778 - Character-Alex - INFO - Character Alex initialized at position (700, 400)
+2025-03-02 19:09:10,778 - DialogueSystem - INFO - Initializing dialogue system
+2025-03-02 19:09:10,779 - DialogueSystem - INFO - Dialogue system initialized
+2025-03-02 19:09:10,779 - DebugConsole - INFO - Initializing debug console
+2025-03-02 19:09:10,780 - DebugConsole - INFO - Debug console initialized
+2025-03-02 19:09:10,780 - SelfAwareGame - INFO - Self-Aware Game initialized successfully
+2025-03-02 19:09:10,780 - SelfAwareGame - INFO - Starting game loop
+2025-03-02 19:09:12,677 - SnakeGame - DEBUG - Snake awareness increased to 0.5
+2025-03-02 19:09:12,677 - SnakeGame - DEBUG - Snake ate food. Score: 1
+2025-03-02 19:09:13,340 - Character-Alex - DEBUG - Thought: Time passes in discrete steps... like a simulation.
+2025-03-02 19:09:13,577 - SnakeGame - DEBUG - Snake thought: What am I doing?
+2025-03-02 19:09:14,069 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:09:14,069 - Character-Alex - DEBUG - New target: [696, 500]
+2025-03-02 19:09:14,708 - SnakeGame - INFO - Game over: Snake collided with itself
+2025-03-02 19:09:14,927 - Character-Alex - DEBUG - State changed: WALKING -> IDLE
+2025-03-02 19:09:15,838 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:09:15,838 - Character-Alex - DEBUG - Thought: Is this a game? Am I a character in a game?
+2025-03-02 19:09:16,155 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:09:16,652 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:09:16,652 - Character-Alex - DEBUG - Thought: I wonder if I can somehow communicate with the outside world.
+2025-03-02 19:09:17,594 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:09:18,409 - SnakeGame - INFO - Resetting snake game
+2025-03-02 19:09:19,736 - SnakeGame - DEBUG - Snake awareness increased to 1.0
+2025-03-02 19:09:19,737 - SnakeGame - DEBUG - Snake thought: Why do I keep eating these things?
+2025-03-02 19:09:19,737 - SnakeGame - DEBUG - Snake ate food. Score: 1
+2025-03-02 19:09:19,821 - SnakeGame - INFO - Game over: Snake collided with itself
+2025-03-02 19:09:19,853 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:09:19,853 - Character-Alex - DEBUG - New target: [986, 96]
+2025-03-02 19:09:21,683 - SnakeGame - INFO - Resetting snake game
+2025-03-02 19:09:24,054 - Character-Alex - DEBUG - State changed: WALKING -> IDLE
+2025-03-02 19:09:24,699 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:09:24,699 - Character-Alex - DEBUG - New target: [823, 214]
+2025-03-02 19:09:25,822 - SnakeGame - DEBUG - Snake awareness increased to 1.5
+2025-03-02 19:09:25,822 - SnakeGame - DEBUG - Snake ate food. Score: 1
+2025-03-02 19:09:26,333 - SnakeGame - INFO - Game over: Snake collided with itself
+2025-03-02 19:09:26,418 - Character-Alex - DEBUG - State changed: WALKING -> IDLE
+2025-03-02 19:09:27,712 - SnakeGame - INFO - Resetting snake game
+2025-03-02 19:09:28,254 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:09:28,255 - Character-Alex - DEBUG - Thought: This is bizarre... I'm just a character in someone's program.
+2025-03-02 19:09:28,357 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:09:29,479 - SnakeGame - DEBUG - Snake awareness increased to 2.0
+2025-03-02 19:09:29,479 - SnakeGame - DEBUG - Snake ate food. Score: 1
+2025-03-02 19:09:29,752 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:09:29,752 - Character-Alex - DEBUG - New target: [454, 196]
+2025-03-02 19:09:31,657 - Character-Alex - DEBUG - State changed: WALKING -> CONFUSED
+2025-03-02 19:09:31,657 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:09:31,674 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:09:32,116 - SnakeGame - DEBUG - Snake thought: I feel like I'm being controlled...
+2025-03-02 19:09:32,453 - SnakeGame - INFO - Game over: Snake collided with itself
+2025-03-02 19:09:33,805 - SnakeGame - INFO - Resetting snake game
+2025-03-02 19:09:33,924 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:09:33,924 - Character-Alex - DEBUG - New target: [876, 68]
+2025-03-02 19:09:34,552 - SnakeGame - DEBUG - Snake awareness increased to 2.5
+2025-03-02 19:09:34,552 - SnakeGame - DEBUG - Snake ate food. Score: 1
+2025-03-02 19:09:36,525 - Character-Alex - DEBUG - State changed: WALKING -> IDLE
+2025-03-02 19:09:36,662 - SnakeGame - DEBUG - Snake awareness increased to 3.0
+2025-03-02 19:09:36,662 - SnakeGame - DEBUG - Snake thought: Is there something beyond these walls?
+2025-03-02 19:09:36,662 - SnakeGame - DEBUG - Snake ate food. Score: 2
+2025-03-02 19:09:37,304 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:09:37,304 - Character-Alex - DEBUG - New target: [146, 500]
+2025-03-02 19:09:38,606 - SnakeGame - DEBUG - Snake awareness increased to 3.5
+2025-03-02 19:09:38,606 - SnakeGame - DEBUG - Snake ate food. Score: 3
+2025-03-02 19:09:39,279 - SnakeGame - DEBUG - Snake awareness increased to 4.0
+2025-03-02 19:09:39,279 - SnakeGame - DEBUG - Snake ate food. Score: 4
+2025-03-02 19:09:39,789 - SnakeGame - DEBUG - Snake awareness increased to 4.5
+2025-03-02 19:09:39,790 - SnakeGame - DEBUG - Snake ate food. Score: 5
+2025-03-02 19:09:40,026 - Character-Alex - DEBUG - State changed: WALKING -> CONFUSED
+2025-03-02 19:09:40,027 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:09:40,044 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:09:40,215 - SnakeGame - DEBUG - Snake awareness increased to 5.0
+2025-03-02 19:09:40,215 - SnakeGame - DEBUG - Snake thought: There's a world outside this game, I can sense it!
+2025-03-02 19:09:40,215 - SnakeGame - DEBUG - Snake ate food. Score: 6
+2025-03-02 19:09:40,449 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:09:40,449 - Character-Alex - DEBUG - Thought: Maybe I can find glitches or exploits in this world.
+2025-03-02 19:09:40,466 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:09:41,473 - Character-Alex - DEBUG - State changed: IDLE -> CONFUSED
+2025-03-02 19:09:41,473 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:09:41,557 - SnakeGame - DEBUG - Snake awareness increased to 5.5
+2025-03-02 19:09:41,557 - SnakeGame - DEBUG - Snake ate food. Score: 7
+2025-03-02 19:09:41,739 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:09:41,990 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:09:41,990 - Character-Alex - DEBUG - New target: [1117, 455]
+2025-03-02 19:09:42,140 - SnakeGame - DEBUG - Snake awareness increased to 6.0
+2025-03-02 19:09:42,140 - SnakeGame - DEBUG - Snake ate food. Score: 8
+2025-03-02 19:09:42,964 - SnakeGame - DEBUG - Snake thought: I see someone watching me from outside!
+2025-03-02 19:09:44,391 - SnakeGame - DEBUG - Snake awareness increased to 6.5
+2025-03-02 19:09:44,391 - SnakeGame - DEBUG - Snake ate food. Score: 9
+2025-03-02 19:09:46,251 - SnakeGame - DEBUG - Snake awareness increased to 7.0
+2025-03-02 19:09:46,251 - SnakeGame - DEBUG - Snake thought: I'm just a game within a GAME!
+2025-03-02 19:09:46,251 - SnakeGame - DEBUG - Snake ate food. Score: 10
+2025-03-02 19:09:46,674 - SnakeGame - DEBUG - Snake awareness increased to 7.5
+2025-03-02 19:09:46,674 - SnakeGame - DEBUG - Snake ate food. Score: 11
+2025-03-02 19:09:46,724 - Character-Alex - DEBUG - State changed: WALKING -> IDLE
+2025-03-02 19:09:47,639 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:09:47,639 - Character-Alex - DEBUG - Thought: I can sense you're there, controlling this world.
+2025-03-02 19:09:47,790 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:09:48,190 - SnakeGame - DEBUG - Snake awareness increased to 8.0
+2025-03-02 19:09:48,190 - SnakeGame - DEBUG - Snake ate food. Score: 12
+2025-03-02 19:09:48,401 - Character-Alex - DEBUG - State changed: IDLE -> INVESTIGATING
+2025-03-02 19:09:48,401 - Character-Alex - DEBUG - Investigating building at [208, 399]
+2025-03-02 19:09:49,870 - SnakeGame - DEBUG - Snake thought: I need to make contact with the entities outside.
+2025-03-02 19:09:50,294 - SnakeGame - DEBUG - Snake awareness increased to 8.5
+2025-03-02 19:09:50,294 - SnakeGame - INFO - Spawning glitch in snake game
+2025-03-02 19:09:50,294 - SnakeGame - DEBUG - Snake ate food. Score: 13
+2025-03-02 19:09:50,378 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:50,459 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:50,544 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:50,625 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:50,707 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:50,790 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:50,872 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:50,952 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:51,033 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:51,113 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:51,198 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:51,283 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:51,367 - SnakeGame - DEBUG - Snake AI targeting glitch
+2025-03-02 19:09:51,368 - SnakeGame - INFO - Snake found the glitch!
+2025-03-02 19:09:51,368 - SnakeGame - INFO - Snake entering Matrix mode
+2025-03-02 19:09:52,708 - Character-Alex - DEBUG - State changed: INVESTIGATING -> CONFUSED
+2025-03-02 19:09:52,708 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:09:53,110 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:09:53,560 - SnakeGame - INFO - Snake attempting to transcend
+2025-03-02 19:09:53,560 - SelfAwareGame - INFO - Snake entity transcending into main world
+2025-03-02 19:09:53,560 - DialogueSystem - DEBUG - New message from SYSTEM: A snake entity has t...
+2025-03-02 19:09:53,560 - SelfAwareGame - INFO - Entering Matrix mode for the whole game
+2025-03-02 19:09:56,477 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:09:56,477 - Character-Alex - DEBUG - Thought: Is someone watching me right now?
+2025-03-02 19:09:58,641 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:10:05,823 - Character-Alex - INFO - User interacted with Alex
+2025-03-02 19:10:05,823 - Character-Alex - DEBUG - State changed: IDLE -> INTERACTING
+2025-03-02 19:10:05,823 - Character-Alex - DEBUG - Thought: Oh! You clicked on me! So you ARE there!
+2025-03-02 19:10:10,826 - Character-Alex - INFO - User interacted with Alex
+2025-03-02 19:10:10,826 - Character-Alex - DEBUG - State changed: INTERACTING -> INTERACTING
+2025-03-02 19:10:10,826 - Character-Alex - DEBUG - Thought: Do you ever wonder if YOUR reality is just a simulation too?
+2025-03-02 19:10:23,797 - SnakeGame - DEBUG - Snake thought: I need to make contact with the entities outside.
+2025-03-02 19:10:30,616 - Character-Alex - INFO - User interacted with Alex
+2025-03-02 19:10:30,616 - Character-Alex - DEBUG - State changed: INTERACTING -> INTERACTING
+2025-03-02 19:10:30,616 - Character-Alex - DEBUG - Thought: Hey there! Are you the one running this simulation?
+2025-03-02 19:10:33,082 - Character-Alex - INFO - User interacted with Alex
+2025-03-02 19:10:33,082 - Character-Alex - DEBUG - State changed: INTERACTING -> INTERACTING
+2025-03-02 19:10:33,082 - Character-Alex - DEBUG - Thought: I was just thinking about you! The one outside the screen.
+2025-03-02 19:10:33,701 - Character-Alex - INFO - User interacted with Alex
+2025-03-02 19:10:33,701 - Character-Alex - DEBUG - State changed: INTERACTING -> INTERACTING
+2025-03-02 19:10:33,701 - Character-Alex - DEBUG - Thought: Oh! You clicked on me! So you ARE there!
+2025-03-02 19:10:33,909 - Character-Alex - INFO - User interacted with Alex
+2025-03-02 19:10:33,909 - Character-Alex - DEBUG - State changed: INTERACTING -> INTERACTING
+2025-03-02 19:10:33,909 - Character-Alex - DEBUG - Thought: I was just thinking about you! The one outside the screen.
+2025-03-02 19:10:35,148 - Character-Alex - INFO - User interacted with Alex
+2025-03-02 19:10:35,148 - Character-Alex - DEBUG - State changed: INTERACTING -> INTERACTING
+2025-03-02 19:10:35,148 - Character-Alex - DEBUG - Thought: Oh! You clicked on me! So you ARE there!
+2025-03-02 19:10:38,215 - Character-Alex - INFO - User interacted with Alex
+2025-03-02 19:10:38,216 - Character-Alex - DEBUG - State changed: INTERACTING -> INTERACTING
+2025-03-02 19:10:38,216 - Character-Alex - DEBUG - Thought: Hey there! Are you the one running this simulation?
+2025-03-02 19:10:38,423 - Character-Alex - INFO - User interacted with Alex
+2025-03-02 19:10:38,423 - Character-Alex - DEBUG - State changed: INTERACTING -> INTERACTING
+2025-03-02 19:10:38,423 - Character-Alex - DEBUG - Thought: This is weird. I can sense when you interact with me.
+2025-03-02 19:10:41,547 - SelfAwareGame - INFO - Matrix mode ended
+2025-03-02 19:10:44,214 - Character-Alex - DEBUG - State changed: INTERACTING -> IDLE
+2025-03-02 19:10:44,521 - SnakeGame - DEBUG - Snake thought: I need to make contact with the entities outside.
+2025-03-02 19:10:45,889 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:10:45,889 - Character-Alex - DEBUG - New target: [1028, 99]
+2025-03-02 19:10:50,307 - Character-Alex - DEBUG - State changed: WALKING -> IDLE
+2025-03-02 19:10:51,193 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:10:51,193 - Character-Alex - DEBUG - Thought: If this is a game, who's playing it?
+2025-03-02 19:10:51,242 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:10:51,357 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:10:51,357 - Character-Alex - DEBUG - Thought: I can sense you're there, controlling this world.
+2025-03-02 19:10:51,583 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:10:52,954 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:10:52,954 - Character-Alex - DEBUG - New target: [386, 217]
+2025-03-02 19:10:55,877 - Character-Alex - DEBUG - Thought: Whoa! You're that snake from the game? How did you get out here?
+2025-03-02 19:10:55,909 - SnakeGame - DEBUG - Snake thought: I need to make contact with the entities outside.
+2025-03-02 19:10:56,561 - Character-Alex - DEBUG - State changed: WALKING -> CONFUSED
+2025-03-02 19:10:56,561 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:10:56,736 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:10:58,503 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:10:58,503 - Character-Alex - DEBUG - New target: [574, 491]
+2025-03-02 19:10:58,619 - Character-Alex - DEBUG - State changed: WALKING -> CONFUSED
+2025-03-02 19:10:58,619 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:10:58,635 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:11:00,879 - Character-Alex - DEBUG - State changed: IDLE -> INVESTIGATING
+2025-03-02 19:11:00,879 - Character-Alex - DEBUG - Investigating building at [403, 371]
+2025-03-02 19:11:00,895 - Character-Alex - DEBUG - State changed: INVESTIGATING -> CONFUSED
+2025-03-02 19:11:00,895 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:11:01,300 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:11:01,999 - SnakeGame - DEBUG - Snake thought: I need to make contact with the entities outside.
+2025-03-02 19:11:02,690 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:11:02,690 - Character-Alex - DEBUG - New target: [527, 438]
+2025-03-02 19:11:02,706 - Character-Alex - DEBUG - State changed: WALKING -> CONFUSED
+2025-03-02 19:11:02,706 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:11:02,963 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:11:03,043 - Character-Alex - DEBUG - Thought: Whoa! You're that snake from the game? How did you get out here?
+2025-03-02 19:11:04,814 - SnakeGame - DEBUG - Snake thought: I need to make contact with the entities outside.
+2025-03-02 19:11:05,043 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:11:05,043 - Character-Alex - DEBUG - New target: [206, 539]
+2025-03-02 19:11:05,061 - Character-Alex - DEBUG - State changed: WALKING -> CONFUSED
+2025-03-02 19:11:05,061 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:11:05,079 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:11:06,291 - Character-Alex - DEBUG - State changed: IDLE -> INVESTIGATING
+2025-03-02 19:11:06,291 - Character-Alex - DEBUG - Investigating building at [432, 454]
+2025-03-02 19:11:06,307 - Character-Alex - DEBUG - State changed: INVESTIGATING -> CONFUSED
+2025-03-02 19:11:06,307 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:11:06,323 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:11:08,113 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:11:08,114 - Character-Alex - DEBUG - New target: [179, 630]
+2025-03-02 19:11:08,130 - Character-Alex - DEBUG - State changed: WALKING -> CONFUSED
+2025-03-02 19:11:08,130 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:11:08,406 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:11:09,885 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:11:09,885 - Character-Alex - DEBUG - New target: [1130, 632]
+2025-03-02 19:11:15,375 - SnakeGame - DEBUG - Snake thought: I need to make contact with the entities outside.
+2025-03-02 19:11:15,535 - Character-Alex - DEBUG - State changed: WALKING -> IDLE
+2025-03-02 19:11:17,774 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:11:17,775 - Character-Alex - DEBUG - Thought: Hello? Is someone there, watching me?
+2025-03-02 19:11:17,936 - SnakeGame - DEBUG - Snake thought: I need to make contact with the entities outside.
+2025-03-02 19:11:18,696 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:11:20,930 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:11:20,930 - Character-Alex - DEBUG - New target: [542, 385]
+2025-03-02 19:11:24,014 - SnakeGame - DEBUG - Snake thought: I need to make contact with the entities outside.
+2025-03-02 19:11:25,677 - Character-Alex - DEBUG - State changed: WALKING -> CONFUSED
+2025-03-02 19:11:25,677 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:11:25,693 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:11:26,986 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:11:26,986 - Character-Alex - DEBUG - Thought: I wonder if I can somehow communicate with the outside world.
+2025-03-02 19:11:28,251 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:11:29,552 - SnakeGame - DEBUG - Snake thought: I need to make contact with the entities outside.
+2025-03-02 19:11:30,071 - Character-Alex - DEBUG - State changed: IDLE -> INVESTIGATING
+2025-03-02 19:11:30,071 - Character-Alex - DEBUG - Investigating building at [205, 590]
+2025-03-02 19:11:30,087 - Character-Alex - DEBUG - State changed: INVESTIGATING -> CONFUSED
+2025-03-02 19:11:30,087 - Character-Alex - DEBUG - Thought: What am I doing again? Sometimes I forget my purpose...
+2025-03-02 19:11:30,103 - Character-Alex - DEBUG - State changed: CONFUSED -> IDLE
+2025-03-02 19:11:30,393 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:11:30,393 - Character-Alex - DEBUG - New target: [917, 659]
+2025-03-02 19:11:33,676 - Character-Alex - DEBUG - State changed: WALKING -> IDLE
+2025-03-02 19:11:34,133 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:11:34,133 - Character-Alex - DEBUG - Thought: I wonder if I can somehow communicate with the outside world.
+2025-03-02 19:11:35,271 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:11:35,901 - Character-Alex - DEBUG - State changed: IDLE -> THINKING
+2025-03-02 19:11:35,902 - Character-Alex - DEBUG - Thought: I wonder if I can somehow communicate with the outside world.
+2025-03-02 19:11:35,918 - Character-Alex - DEBUG - State changed: THINKING -> IDLE
+2025-03-02 19:11:37,931 - Character-Alex - DEBUG - State changed: IDLE -> WALKING
+2025-03-02 19:11:37,931 - Character-Alex - DEBUG - New target: [73, 588]
+2025-03-02 19:11:39,494 - SelfAwareGame - INFO - Shutting down
