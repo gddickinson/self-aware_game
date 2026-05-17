@@ -120,3 +120,7 @@ All debug information is also written to `debug.log`.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+
+---
+*Built with AI assistance from [Claude (Anthropic)](https://claude.com/).*
