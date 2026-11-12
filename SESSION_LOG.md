@@ -27,8 +27,16 @@ restart, manual control) and checks 905 snapshots + the RNG afterwards. Local ap
 (POST /api/run) for the run you are watching; verified identical in the browser (seed 5, 2174 frames, 6 keys).
 No LLM/API anywhere in the project.
 
-**Open / for George:** after transcendence the snake game stays in Matrix mode with no snake for the rest of the run
-(only game over offers R) -- left as designed. The character's IDLE/THINKING exits re-roll a random threshold every
-frame (`state_timer >= random.randint(...)`) and IDLE starts its timer at 60-180: it works, but durations are not the
-"3-6 s" the comments say; left alone because changing it changes behaviour. Dialogue fading uses wall-clock time in
-the desktop and game frames on the web.
+**Open:** dialogue fading uses wall-clock time in the desktop and game frames on the web.
+
+## 2026-11-11 (later) -- George's decisions on the two open questions
+
+- Fixed: after transcending, the snake game stayed in Matrix mode with no snake for the rest of the run. Matrix mode
+  now ends after `matrix_duration` (5 s, as the code says) and the game starts over with a new snake at awareness 0
+  (`SnakeGame.start_new_snake`), which can escape again; runs now produce several transcended entities.
+- Fixed: idle/thinking/confused spells lasted ~1.25 s / 0.27 s / 0.07 s (median) instead of the commented 3-6 s,
+  3-5 s, 1.5-2.5 s: the exit threshold was re-rolled every frame against a timer started part-way. The duration is
+  now drawn once on entry (`state_duration`), timer from 0.
+- JS engine ported for both, fixture regenerated (905 snapshots identical, up to 3 transcendences per run); seed 0 now
+  transcends at frame 5200 (Verify run 6000 frames, home hero frame 5170). Browser "Check with Python" on seed 0,
+  6170 frames with keys: identical. Screenshots refreshed.

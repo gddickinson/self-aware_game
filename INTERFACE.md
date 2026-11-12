@@ -9,13 +9,13 @@
 ## Modules (`modules/`)
 - **`modules/__init__.py`** -- Package init (logging setup)
 - **`modules/snake_game.py`** -- `SnakeGame(SnakeAIMixin, SnakeRenderMixin)`: rules and state of the self-aware
-  snake (awareness, thoughts, glitch, Matrix mode, transcendence, key handling)
+  snake (awareness, thoughts, glitch, Matrix mode, transcendence, `start_new_snake` after Matrix mode ends, key handling)
 - **`modules/snake_ai.py`** -- `SnakeAIMixin`: `ai_move` (toward food/glitch, smarter from awareness 5),
   `ai_matrix_move` (toward the edges)
 - **`modules/snake_render.py`** -- `SnakeRenderMixin`: `render`, matrix rain, thought bubble (the glitch lines use
   `random`, the only random draw in any render code)
 - **`modules/character.py`** -- `CharacterState` enum, `SelfAwareCharacter` (states, thoughts,
-  `FOURTH_WALL_THOUGHTS`, `is_near_building` measured from the building's edge, `interact`)
+  `FOURTH_WALL_THOUGHTS`, `state_duration` drawn on entering a state, `is_near_building` measured from the building's edge, `interact`)
 - **`modules/world.py`** -- `Building`, `GameWorld` (buildings, collision with pygame.Rect, rendering)
 - **`modules/dialogue.py`** -- `DialogueMessage`, `DialogueSystem` (last 5 messages, fading)
 - **`modules/debug.py`** -- `DebugConsole` (FPS from the game clock, character/snake stats), `DebugCommand`
