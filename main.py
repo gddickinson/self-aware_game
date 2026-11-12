@@ -174,11 +174,8 @@ class SelfAwareGame:
         if self.matrix_mode:
             self.update_matrix_mode()
 
-        # Update the world
+        # Update the world (this also updates the snake game, which is one of its buildings)
         self.world.update()
-
-        # Update the snake game
-        self.snake_game.update()
 
         # Update self-aware character
         self.character.update()
@@ -235,11 +232,8 @@ class SelfAwareGame:
         # Clear the screen
         self.screen.fill((50, 50, 50))  # Dark gray background
 
-        # Render the world
+        # Render the world (this also renders the snake game, which is one of its buildings)
         self.world.render(self.screen)
-
-        # Render the snake game
-        self.snake_game.render(self.screen)
 
         # Render transcended entities
         for entity in self.transcended_entities:
