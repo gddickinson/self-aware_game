@@ -329,8 +329,10 @@ class SnakeGame:
         dx, dy = self.direction
         new_head = ((head_x + dx) % self.grid_width, (head_y + dy) % self.grid_height)
 
-        # Check for collision with self
-        if new_head in self.snake:
+        # Check for collision with self. The tail moves out of its cell on this step unless the
+        # snake is eating (the AI in ai_move() relies on this), so it only counts when eating.
+        body = self.snake if new_head == self.food else self.snake[:-1]
+        if new_head in body:
             self.game_over = True
             self.logger.info("Game over: Snake collided with itself")
             return
