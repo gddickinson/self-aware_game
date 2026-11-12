@@ -16,7 +16,8 @@ route('about', () => {
     <li><b>The snake</b> (<code>modules/snake_game.py</code>, <code>snake_ai.py</code>) plays itself. Each meal raises its
       awareness by 0.5 and its AI gets smarter from level 5. From level 8 a glitch can appear; eating it (or pressing
       <kbd>T</kbd>) starts Matrix mode, and 4.5 seconds later the snake transcends into the world as a
-      <b>transcended entity</b> (<code>modules/entities.py</code>), with falling code across the whole screen.</li>
+      <b>transcended entity</b> (<code>modules/entities.py</code>), with falling code across the whole screen. When Matrix mode ends the
+      snake game starts over with a new snake that has to become aware again.</li>
     <li>The world (<code>main.py</code>, <code>modules/world.py</code>) notices when Alex comes near the snake game and when
       Alex meets the escaped snake.</li>
   </ul>

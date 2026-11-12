@@ -379,3 +379,20 @@ class SnakeGame(SnakeAIMixin, SnakeRenderMixin):
             # Start transcendence near the end of matrix mode
             if self.matrix_timer == 30 and not self.transcended:
                 self.attempt_transcendence()
+
+            # Matrix mode lasts matrix_duration frames. When it ends, the snake that transcended
+            # is out in the world, so the game starts over with a new, not yet aware snake.
+            if self.matrix_timer == 0:
+                self.matrix_mode = False
+                self.pulsating = False
+                self.matrix_text = []
+                if self.transcended:
+                    self.start_new_snake()
+
+    def start_new_snake(self):
+        """Start over after a transcendence: a fresh snake with no awareness."""
+        self.logger.info("Snake game starting over after transcendence")
+        self.reset_game()
+        self.awareness_level = 0
+        self.current_thought = ""
+        self.thought_timer = 0

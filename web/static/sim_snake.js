@@ -154,7 +154,17 @@ export class SnakeGame {
     if (this.matrixTimer > 0) {
       this.matrixTimer -= 1;
       if (this.matrixTimer === 30 && !this.transcended) this.attemptTranscendence();
+      // Matrix mode lasts matrixDuration frames; then a new, not yet aware snake starts over.
+      if (this.matrixTimer === 0) {
+        this.matrixMode = false; this.pulsating = false; this.matrixText = [];
+        if (this.transcended) this.startNewSnake();
+      }
     }
+  }
+
+  startNewSnake() {
+    this.resetGame();
+    this.awareness = 0; this.currentThought = ''; this.thoughtTimer = 0;
   }
 
   // The desktop's render() draws three glitch lines at random offsets each frame: the same draws, kept for drawing.

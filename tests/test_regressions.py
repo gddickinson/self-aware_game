@@ -161,3 +161,21 @@ def test_state_durations_match_the_comments(game, state, lo, hi):
     frames = [_frames_in_state(game, state, seed) for seed in range(40)]
     assert all(lo <= f <= hi for f in frames), (min(frames), max(frames))
     assert max(frames) - min(frames) > (hi - lo) / 3  # still random within the range
+
+
+def test_snake_game_starts_over_after_transcending(game):
+    """Matrix mode was meant to last matrix_duration (5 s) with transcendence near its end, but it never ended:
+    the snake game stayed empty, frozen in Matrix mode, for the rest of the run."""
+    s = game.snake_game
+    s.awareness_level = 8
+    s.enter_matrix_mode()
+    for _ in range(s.matrix_duration):
+        game.update()
+    assert len(game.transcended_entities) == 1          # the aware snake escaped into the world...
+    assert not s.matrix_mode and not s.transcended      # ...and Matrix mode is over
+    assert len(s.snake) == 3 and not s.game_over and s.score == 0
+    assert s.awareness_level == 0 and s.current_thought == ""  # a new snake, not yet aware
+    head = s.snake[0]
+    for _ in range(s.ai_speed):
+        game.update()
+    assert s.snake[0] != head                           # and it plays
