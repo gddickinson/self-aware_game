@@ -173,9 +173,11 @@ class SelfAwareCharacter:
             self.animation_timer = 0
             self.animation_frame = (self.animation_frame + 1) % 4
 
-        # Handle thought timer
+        # Handle thought timer (a finished thought is cleared so a new idle thought can start)
         if self.thought_timer > 0:
             self.thought_timer -= 1
+            if self.thought_timer == 0:
+                self.current_thought = ""
 
         # Update state timer
         self.state_timer += 1

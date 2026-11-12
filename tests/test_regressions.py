@@ -89,3 +89,14 @@ def test_investigating_the_snake_game_ends_in_a_thought_about_it(game):
             break
     assert c.state == CharacterState.THINKING
     assert c.current_thought in c.snake_game_observations
+
+
+def test_finished_thought_is_cleared_so_idle_thoughts_can_recur(game):
+    """The idle state only starts a new thought when no thought is current."""
+    c = game.character
+    c.state, c.state_timer = CharacterState.INTERACTING, -10_000  # a state that starts no thoughts
+    c.trigger_thought("first")
+    for _ in range(c.thought_timer):
+        c.update()
+    assert c.thought_timer == 0
+    assert c.current_thought == ""
