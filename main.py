@@ -251,7 +251,7 @@ class SelfAwareGame:
 
         # Render debug information if enabled
         if self.debug_mode:
-            self.debug_console.render(self.character, self.world, self.snake_game)
+            self.debug_console.render(self.character, self.world, self.snake_game, self.clock)
 
         # Render "PAUSED" if game is paused
         if self.paused:

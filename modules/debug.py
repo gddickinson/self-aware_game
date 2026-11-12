@@ -74,12 +74,16 @@ class DebugConsole:
         while len(self.error_log) > self.max_errors:
             self.error_log.pop(0)
 
-    def render(self, character, world, snake_game):
-        """Render debug information on the screen."""
+    def render(self, character, world, snake_game, clock=None):
+        """Render debug information on the screen.
+
+        Args:
+            clock (pygame.time.Clock, optional): the game loop's clock, for the FPS line
+        """
         y_offset = self.position[1]
 
         # Display FPS
-        fps = pygame.time.Clock().get_fps()
+        fps = clock.get_fps() if clock else 0.0
         fps_text = self.font.render(f"FPS: {fps:.1f}", True, (255, 255, 0))
         self.screen.blit(fps_text, (self.position[0], y_offset))
         y_offset += self.line_height

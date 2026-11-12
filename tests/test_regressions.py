@@ -100,3 +100,25 @@ def test_finished_thought_is_cleared_so_idle_thoughts_can_recur(game):
         c.update()
     assert c.thought_timer == 0
     assert c.current_thought == ""
+
+
+def test_debug_console_shows_the_game_clock_fps(game, monkeypatch):
+    """The FPS line used a brand-new Clock, which always reports 0.0."""
+    class FakeClock:
+        def get_fps(self):
+            return 59.5
+    shown = []
+    real = game.debug_console.font
+
+    class SpyFont:
+        def render(self, text, *a):
+            shown.append(text)
+            return real.render(text, *a)
+
+        def __getattr__(self, name):
+            return getattr(real, name)
+    monkeypatch.setattr(game.debug_console, "font", SpyFont())
+    game.clock = FakeClock()
+    game.debug_mode = True
+    game.render()
+    assert "FPS: 59.5" in shown
