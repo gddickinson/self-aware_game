@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 from web.sim_record import KEYS, run, texts
 
 STATIC = Path(__file__).resolve().parent / "static"
-REFERENCE = {"seed": 0, "frames": 5000, "every": 50}  # the Verify page's recorded Python run (snake transcends ~3600)
+REFERENCE = {"seed": 0, "frames": 6000, "every": 50}  # the Verify page's recorded Python run (snake transcends ~5200)
 
 app = FastAPI(title="Self-Aware Game")
 app.mount("/static", StaticFiles(directory=STATIC), name="static")

@@ -7,7 +7,7 @@ export function snapshot(g) {
   return {
     frame: g.frame, paused: g.paused, matrix: g.matrixMode, matrixTimer: g.matrixTimer,
     rain: g.matrixText.slice(0, 3).map(m => [m.x, m.y]),
-    char: { pos: xy(c.position), state: c.state, stateTimer: c.stateTimer, dir: c.direction, target: xy(c.target),
+    char: { pos: xy(c.position), state: c.state, stateTimer: c.stateTimer, stateDuration: c.stateDuration, dir: c.direction, target: xy(c.target),
       thought: c.currentThought, thoughtTimer: c.thoughtTimer, noticed: c.noticedSnakeGame, anim: c.animFrame },
     snake: { body: s.snake.map(xy), dir: xy(s.direction), next: xy(s.nextDirection), food: xy(s.food), score: s.score,
       awareness: s.awareness, over: s.gameOver, paused: s.paused, ai: s.aiControlled, speed: s.aiSpeed,

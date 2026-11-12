@@ -12,6 +12,7 @@ export class SelfAwareCharacter {
     this.direction = 0;  // 0 right, 1 down, 2 left, 3 up (sprite-sheet row)
     this.animFrame = 0; this.animSpeed = 0.1; this.animTimer = 0;
     this.state = 'IDLE'; this.stateTimer = 0; this.target = null;
+    this.stateDuration = rng.randint(180, 360);  // frames the current state lasts (drawn on entry); 3-6 s idle
     this.selfAwareness = 8.5;  // 0-10 scale; fixed in the Python (the character starts self-aware)
     this.thoughts = CHARACTER_THOUGHTS;
     this.currentThought = ''; this.thoughtTimer = 0;
@@ -27,11 +28,11 @@ export class SelfAwareCharacter {
   changeState(s) {
     const r = this.rng, w = this.world;
     this.state = s; this.stateTimer = 0;
-    if (s === 'IDLE') this.stateTimer = r.randint(60, 180);
+    if (s === 'IDLE') this.stateDuration = r.randint(180, 360);
     else if (s === 'WALKING') {
       const x = r.randint(50, w.width - 50);
       this.target = [x, r.randint(50, w.height - 50)];
-    } else if (s === 'THINKING') { this.stateTimer = r.randint(120, 240); this.triggerThought(); }
+    } else if (s === 'THINKING') { this.stateDuration = r.randint(180, 300); this.triggerThought(); }
     else if (s === 'INVESTIGATING') {
       const bs = w.getBuildings();
       if (bs.length) {
@@ -39,7 +40,7 @@ export class SelfAwareCharacter {
         const x = b.position[0] + r.randint(0, b.size[0]);
         this.target = [x, b.position[1] + r.randint(0, b.size[1])];
       }
-    } else if (s === 'CONFUSED') { this.stateTimer = r.randint(90, 150); this.triggerThought(LINES.CONFUSED); }
+    } else if (s === 'CONFUSED') { this.stateDuration = r.randint(90, 150); this.triggerThought(LINES.CONFUSED); }
   }
 
   // One step toward the target; returns 'arrived', 'blocked' or 'moving'.
@@ -68,7 +69,7 @@ export class SelfAwareCharacter {
     const s = this.state;
     if (s === 'IDLE') {
       if (this.stateTimer > 60 && r.random() < 0.01 && !this.currentThought) this.triggerThought();
-      if (this.stateTimer >= r.randint(180, 360)) {
+      if (this.stateTimer >= this.stateDuration) {
         const choices = [['WALKING', 0.5], ['THINKING', 0.3], ['INVESTIGATING', 0.15], ['CONFUSED', 0.05]];
         let total = 0;
         for (const [, w] of choices) total += w;
@@ -83,14 +84,14 @@ export class SelfAwareCharacter {
         else if (res === 'blocked') this.changeState('CONFUSED');
       } else this.changeState('IDLE');
     } else if (s === 'THINKING') {
-      if (this.stateTimer >= r.randint(180, 300)) this.changeState('IDLE');
+      if (this.stateTimer >= this.stateDuration) this.changeState('IDLE');
     } else if (s === 'INVESTIGATING') {
       if (this.target) {
         const res = this.stepToTarget();
         if (res !== 'moving') this.finishInvestigation();
       } else this.changeState('IDLE');
     } else if (s === 'CONFUSED') {
-      if (this.stateTimer >= 120) this.changeState('IDLE');
+      if (this.stateTimer >= this.stateDuration) this.changeState('IDLE');
     } else if (s === 'INTERACTING') {
       if (this.stateTimer >= 180) this.changeState('IDLE');
     }

@@ -135,3 +135,29 @@ def test_manual_snake_moves_at_the_same_pace_as_the_ai():
     assert s.snake[0] == head
     s.update()
     assert s.snake[0] == (head[0] + 1, head[1])
+
+
+def _frames_in_state(game, state, seed):
+    """Enter `state` and count updates until the character leaves it."""
+    random.seed(seed)
+    c = game.character
+    c.position = [900.0, 500.0]
+    c.change_state(state)
+    for n in range(1, 2000):
+        c.update()
+        if c.state != state:
+            return n
+    return None
+
+
+@pytest.mark.parametrize("state, lo, hi", [
+    (CharacterState.IDLE, 180, 360),       # "3-6 seconds idle"
+    (CharacterState.THINKING, 180, 300),   # "3-5 seconds thinking"
+    (CharacterState.CONFUSED, 90, 150),    # "1.5-2.5 seconds confused"
+])
+def test_state_durations_match_the_comments(game, state, lo, hi):
+    """The exit threshold was re-rolled every frame and compared with a timer that started part-way (or at 0 for a
+    fixed 120), so idle lasted ~1 s, thinking ~0.3 s and confusion ~0.1 s instead of the commented durations."""
+    frames = [_frames_in_state(game, state, seed) for seed in range(40)]
+    assert all(lo <= f <= hi for f in frames), (min(frames), max(frames))
+    assert max(frames) - min(frames) > (hi - lo) / 3  # still random within the range

@@ -18,7 +18,7 @@ function alex(g) {
   <p class="small mute">Self-awareness</p>${meter(c.selfAwareness, 10, 'self-awareness')}
   ${thought(c.currentThought, c.thoughtTimer)}
   <div class="readout">
-    ${row('state', esc(c.state), STATES.join(' / '))}${row('state timer', c.stateTimer)}
+    ${row('state', esc(c.state), STATES.join(' / '))}${row('time in state', ['IDLE', 'THINKING', 'CONFUSED'].includes(c.state) ? `${c.stateTimer} / ${c.stateDuration} frames` : `${c.stateTimer} frames`)}
     ${row('position', xy(c.position))}${row('facing', DIRS[c.direction])}
     ${row('target', xy(c.target))}${row('near snake game', c.isNearBuilding('Snake Game') ? 'yes' : 'no')}
     ${row('noticed snake game', c.noticedSnakeGame ? 'yes' : 'no')}${row('animation frame', c.animFrame)}

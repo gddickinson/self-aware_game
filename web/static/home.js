@@ -3,7 +3,7 @@ import { route, api, app, isStatic, $ } from './core.js';
 import { Game } from './sim_world.js';
 import { draw } from './sim_render.js';
 
-const HERO_FRAME = 3570;  // seed 0: the snake is in Matrix mode, about to transcend
+const HERO_FRAME = 5170;  // seed 0: the snake is in Matrix mode, about to transcend
 
 route('home', async () => {
   const info = await api('/info');

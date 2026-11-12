@@ -62,7 +62,8 @@ class SelfAwareCharacter:
 
         # AI behavior
         self.state = CharacterState.IDLE
-        self.state_timer = 0
+        self.state_timer = 0  # frames spent in the current state
+        self.state_duration = random.randint(180, 360)  # frames the current state lasts (drawn on entry); 3-6 s idle
         self.target_position = None
         self.path = []
 
@@ -146,7 +147,7 @@ class SelfAwareCharacter:
 
         # Initialize state-specific behaviors
         if new_state == CharacterState.IDLE:
-            self.state_timer = random.randint(60, 180)  # 1-3 seconds idle
+            self.state_duration = random.randint(180, 360)  # 3-6 seconds idle
 
         elif new_state == CharacterState.WALKING:
             # Choose a random destination
@@ -157,7 +158,7 @@ class SelfAwareCharacter:
             self.logger.debug(f"New target: {self.target_position}")
 
         elif new_state == CharacterState.THINKING:
-            self.state_timer = random.randint(120, 240)  # 2-4 seconds thinking
+            self.state_duration = random.randint(180, 300)  # 3-5 seconds thinking
             self.trigger_thought()  # Trigger a random thought
 
         elif new_state == CharacterState.INVESTIGATING:
@@ -172,7 +173,7 @@ class SelfAwareCharacter:
                 self.logger.debug(f"Investigating building at {self.target_position}")
 
         elif new_state == CharacterState.CONFUSED:
-            self.state_timer = random.randint(90, 150)  # 1.5-2.5 seconds confused
+            self.state_duration = random.randint(90, 150)  # 1.5-2.5 seconds confused
             self.trigger_thought("What am I doing again? Sometimes I forget my purpose...")
 
     def update(self):
@@ -199,7 +200,7 @@ class SelfAwareCharacter:
                 self.trigger_thought()
 
             # Transition to a new state after idle time
-            if self.state_timer >= random.randint(180, 360):  # 3-6 seconds idle
+            if self.state_timer >= self.state_duration:  # 3-6 seconds idle
                 # Choose next state
                 choices = [
                     (CharacterState.WALKING, 0.5),
@@ -254,7 +255,7 @@ class SelfAwareCharacter:
 
         elif self.state == CharacterState.THINKING:
             # Just stand and think
-            if self.state_timer >= random.randint(180, 300):  # 3-5 seconds thinking
+            if self.state_timer >= self.state_duration:  # 3-5 seconds thinking
                 self.change_state(CharacterState.IDLE)
 
         elif self.state == CharacterState.INVESTIGATING:
@@ -292,7 +293,7 @@ class SelfAwareCharacter:
 
         elif self.state == CharacterState.CONFUSED:
             # Look confused, then go back to idle
-            if self.state_timer >= 120:  # 2 seconds of confusion
+            if self.state_timer >= self.state_duration:  # 1.5-2.5 seconds of confusion
                 self.change_state(CharacterState.IDLE)
 
         elif self.state == CharacterState.INTERACTING:
