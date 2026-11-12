@@ -34,6 +34,10 @@ log (`debug.log`) is committed to the repo.
       `matrix_stream` list in `TranscendedEntity` with a proper particle system)
 - [ ] Sound effects and ambient audio tied to awareness level
 
+## Web version (2026-11-11)
+- [x] Browser version of the whole game (JS port, frame-identical to `python main.py --seed N`), GitHub Pages site
+- [ ] If the game logic changes, regenerate `tests/fixtures/sim_fixtures.json` and update `web/static/sim_*.js`
+
 ## Long-term Vision
 - [ ] Story progression system: define narrative beats that trigger based on
       collective awareness levels across all characters
@@ -52,6 +56,6 @@ log (`debug.log`) is committed to the repo.
       project root -- move to a `tools/` directory
 - [x] `debug.log` should not be version-controlled
 - [x] No `requirements.txt` version pinning -- pin `pygame>=2.0.0`
-- [ ] The README references `expanded_main.py` but the file is `main.py`
+- [x] The README references `expanded_main.py` but the file is `main.py` (no longer the case)
 - [ ] Dialogue strings are hardcoded in `dialogue.py` -- externalize to a
       JSON/YAML data file for easier editing

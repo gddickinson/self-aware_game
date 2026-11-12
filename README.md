@@ -13,22 +13,23 @@ A Python simulation featuring self-aware game characters who realize they're in 
 ## Project Structure
 
 ```
-self-aware-game/
+self-aware_game/
 │
-├── main.py                   # Main entry point for the game
+├── main.py                   # Entry point: SelfAwareGame (game loop, keys, transcendence, Matrix effect)
 ├── modules/
 │   ├── __init__.py           # Package initialization
-│   ├── snake_game.py         # The self-aware snake game
+│   ├── snake_game.py         # The self-aware snake game (rules and state)
+│   ├── snake_ai.py           # How the snake steers itself
+│   ├── snake_render.py       # Drawing the snake game
 │   ├── character.py          # Self-aware character implementation
+│   ├── entities.py           # The snake once it has escaped into the world
 │   ├── world.py              # Game world and buildings
 │   ├── dialogue.py           # Dialogue and thought system
 │   └── debug.py              # Debugging tools
-│
-├── assets/
-│   ├── character_sprites.png # Character sprite sheet
-│   └── sounds/               # Game sounds
-│
-├── debug.log                 # Log file (created when running)
+├── web/                      # Web interface and static site (see "Web version" below)
+├── tests/                    # Regression and web tests (pytest)
+├── test_game.py              # Smoke tests
+├── assets/                   # Character sprite sheet, UI images, sounds
 ├── requirements.txt          # Required Python packages
 └── README.md                 # This file
 ```
@@ -42,8 +43,8 @@ self-aware-game/
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/self-aware-game.git
-   cd self-aware-game
+   git clone https://github.com/gddickinson/self-aware_game.git
+   cd self-aware_game
    ```
 
 2. Create and activate a virtual environment (recommended):
@@ -68,16 +69,49 @@ Run the main script to start the game:
 
 ```
 python main.py
+python main.py --seed 0     # a replayable run: the same seed always plays out the same way
 ```
 
 ## Controls
 
-- **Arrow Keys**: Control the snake (when not in AI mode)
+- **Arrow Keys**: Steer the snake (after turning its AI off with **A**)
+- **A**: Toggle the snake's AI
 - **Space**: Pause/resume the snake game
+- **R**: Restart the snake game after game over
+- **+ / -**: Make the snake faster / slower
+- **T**: Trigger transcendence (once the snake's awareness is 8 or more)
 - **P**: Pause/resume the entire simulation
 - **D**: Toggle debug information
-- **E**: Interact with the character when nearby
-- **Mouse**: Click on dialogue to interact
+- **E**: Interact with the character (anywhere on screen)
+- **M**: Force the world-wide Matrix effect
+- **Mouse**: Click a message in the dialogue box to highlight it
+
+## Web version
+
+The game also runs in the browser: **https://gddickinson.github.io/self-aware_game/** (published from `main` by GitHub
+Pages). The game logic is ported line for line to JavaScript (`web/static/sim_*.js`, including Python's Mersenne
+Twister), so `python main.py --seed N` and the web page play exactly the same run; a node test replays five seeded
+Python runs (34,400 frames, every key) and requires identical state.
+
+- **World**: the simulation on a canvas with play/pause/step/speed, seed, every desktop key (buttons or keyboard),
+  click-to-select and an inspector for Alex, the snake, escaped entities and the world, plus an event log.
+- **Thoughts**: every line the characters can think or say, from the Python.
+- **Verify**: replays a run recorded from the Python game and compares it in your browser.
+
+![World page](docs/img/world.png)
+![Home page](docs/img/home.png)
+
+Run it locally (adds "Check with Python", which sends your run, key presses included, to the real Python game):
+
+```
+pip install -r requirements-web.txt
+python run_web.py                 # http://127.0.0.1:8142
+python -m pytest -q               # all tests, including the JS engine test (needs node)
+python scripts/build_static.py    # the static site, in site/
+```
+
+After changing the game's logic, regenerate the engine fixture with `python scripts/make_sim_fixtures.py` and update
+the JavaScript port to match.
 
 ## Building a Custom World
 
