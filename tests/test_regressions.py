@@ -45,6 +45,7 @@ def test_snake_may_move_into_the_cell_its_tail_leaves():
     s.snake = [(5, 5), (5, 6), (6, 6), (6, 5)]
     s.direction = s.next_direction = (1, 0)  # head (5,5) -> (6,5), the tail
     s.food = (0, 0)
+    s.ai_counter = s.ai_speed - 1  # move on the next update
     s.update()
     assert not s.game_over
     assert s.snake[0] == (6, 5) and len(s.snake) == 4
@@ -56,6 +57,7 @@ def test_snake_still_dies_on_its_tail_when_eating():
     s.snake = [(5, 5), (5, 6), (6, 6), (6, 5)]
     s.direction = s.next_direction = (1, 0)
     s.food = (6, 5)
+    s.ai_counter = s.ai_speed - 1
     s.update()
     assert s.game_over
 
@@ -122,3 +124,14 @@ def test_debug_console_shows_the_game_clock_fps(game, monkeypatch):
     game.debug_mode = True
     game.render()
     assert "FPS: 59.5" in shown
+
+
+def test_manual_snake_moves_at_the_same_pace_as_the_ai():
+    """Under arrow-key control the snake moved one cell every frame (60 cells/s): unplayable."""
+    s = _snake(manual=True)
+    head = s.snake[0]
+    for _ in range(s.ai_speed - 1):
+        s.update()
+    assert s.snake[0] == head
+    s.update()
+    assert s.snake[0] == (head[0] + 1, head[1])

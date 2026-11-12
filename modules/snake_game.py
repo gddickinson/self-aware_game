@@ -312,14 +312,13 @@ class SnakeGame:
         if self.transcended:
             return
 
-        # AI control
+        # Move every ai_speed frames, whether the AI or the player steers (+/- change the pace)
+        self.ai_counter += 1
+        if self.ai_counter < self.ai_speed:
+            return  # Skip movement this frame
+        self.ai_counter = 0
         if self.ai_controlled:
-            self.ai_counter += 1
-            if self.ai_counter >= self.ai_speed:
-                self.ai_counter = 0
-                self.ai_move()
-            else:
-                return  # Skip movement this frame for slower AI speed
+            self.ai_move()
 
         # Update direction
         self.direction = self.next_direction
