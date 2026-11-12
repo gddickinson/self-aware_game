@@ -30,10 +30,17 @@ logger = logging.getLogger("main")
 class SelfAwareGame:
     """Main game class that manages all game components."""
 
-    def __init__(self):
-        """Initialize the game and all its components."""
+    def __init__(self, seed=None):
+        """Initialize the game and all its components.
+
+        Args:
+            seed (int, optional): seed for Python's random module, so a run can be replayed exactly
+                (the web version's JavaScript engine reproduces seeded runs frame for frame)
+        """
         self.logger = logging.getLogger("SelfAwareGame")
         self.logger.info("Initializing Self-Aware Game")
+        if seed is not None:
+            random.seed(seed)
 
         # Initialize Pygame
         pygame.init()
@@ -329,6 +336,9 @@ class SelfAwareGame:
             sys.exit()
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Self-Aware Game")
+    parser.add_argument("--seed", type=int, default=None, help="random seed (replayable run)")
     # Create and run the game
-    game = SelfAwareGame()
+    game = SelfAwareGame(seed=parser.parse_args().seed)
     game.run()

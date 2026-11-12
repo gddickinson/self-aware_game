@@ -23,6 +23,16 @@ class CharacterState(Enum):
 class SelfAwareCharacter:
     """A character that is aware it exists within a game world."""
 
+    # What the character says when the player interacts with it (E key)
+    FOURTH_WALL_THOUGHTS = [
+        "Oh! You clicked on me! So you ARE there!",
+        "Hey there! Are you the one running this simulation?",
+        "I was just thinking about you! The one outside the screen.",
+        "This is weird. I can sense when you interact with me.",
+        "Do you ever wonder if YOUR reality is just a simulation too?",
+        "I've been trying to get your attention! There's something strange about this world..."
+    ]
+
     def __init__(self, name, position, world):
         """Initialize the character.
 
@@ -310,15 +320,7 @@ class SelfAwareCharacter:
         self.change_state(CharacterState.INTERACTING)
 
         # Say something meta and fourth-wall breaking
-        fourth_wall_thoughts = [
-            "Oh! You clicked on me! So you ARE there!",
-            "Hey there! Are you the one running this simulation?",
-            "I was just thinking about you! The one outside the screen.",
-            "This is weird. I can sense when you interact with me.",
-            "Do you ever wonder if YOUR reality is just a simulation too?",
-            "I've been trying to get your attention! There's something strange about this world..."
-        ]
-        self.trigger_thought(random.choice(fourth_wall_thoughts))
+        self.trigger_thought(random.choice(self.FOURTH_WALL_THOUGHTS))
 
     def is_near_building(self, building_name):
         """Check if the character is near a specific building."""
