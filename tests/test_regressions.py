@@ -58,3 +58,34 @@ def test_snake_still_dies_on_its_tail_when_eating():
     s.food = (6, 5)
     s.update()
     assert s.game_over
+
+
+def test_character_next_to_snake_game_is_near_it(game):
+    """The 500x500 snake building can't be entered, so 'near' must be measured from its edge."""
+    c = game.character
+    c.position = [610.0, 300.0]  # building spans x 100..600
+    assert c.is_near_building("Snake Game")
+    c.position = [1000.0, 700.0]
+    assert not c.is_near_building("Snake Game")
+
+
+def test_character_notices_snake_game_when_next_to_it(game):
+    c = game.character
+    c.position = [610.0, 300.0]
+    c.state = CharacterState.THINKING
+    game.update()
+    assert c.has_noticed_snake_game
+    assert any("snake game" in m.message for m in game.dialogue.messages)
+
+
+def test_investigating_the_snake_game_ends_in_a_thought_about_it(game):
+    c = game.character
+    c.position = [700.0, 300.0]
+    random.seed(3)
+    c.change_state(CharacterState.INVESTIGATING)
+    for _ in range(400):
+        c.update()
+        if c.state != CharacterState.INVESTIGATING:
+            break
+    assert c.state == CharacterState.THINKING
+    assert c.current_thought in c.snake_game_observations

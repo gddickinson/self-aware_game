@@ -261,15 +261,7 @@ class SelfAwareCharacter:
                 # Reached target?
                 if distance < self.speed:
                     self.position = list(self.target_position)
-                    self.target_position = None
-
-                    # After investigating, think about it
-                    self.change_state(CharacterState.THINKING)
-
-                    # If near the snake game, trigger a specific thought
-                    if self.is_near_building("Snake Game"):
-                        snake_thought = random.choice(self.snake_game_observations)
-                        self.trigger_thought(snake_thought)
+                    self._finish_investigation()
                 else:
                     # Move toward target
                     move_x = (dx / distance) * self.speed
@@ -277,11 +269,12 @@ class SelfAwareCharacter:
                     self.position[0] += move_x
                     self.position[1] += move_y
 
-                    # Check for collisions
+                    # Check for collisions. The target lies inside a building, which can't be
+                    # entered, so bumping into it means the character has arrived.
                     if self.world.check_collision(self):
                         self.position[0] -= move_x
                         self.position[1] -= move_y
-                        self.change_state(CharacterState.CONFUSED)
+                        self._finish_investigation()
             else:
                 self.change_state(CharacterState.IDLE)
 
@@ -294,6 +287,18 @@ class SelfAwareCharacter:
             # Handle interaction with objects or other characters
             if self.state_timer >= 180:  # 3 seconds of interaction
                 self.change_state(CharacterState.IDLE)
+
+    def _finish_investigation(self):
+        """Stop at the investigated building and think about it."""
+        self.target_position = None
+
+        # After investigating, think about it
+        self.change_state(CharacterState.THINKING)
+
+        # If near the snake game, trigger a specific thought
+        if self.is_near_building("Snake Game"):
+            snake_thought = random.choice(self.snake_game_observations)
+            self.trigger_thought(snake_thought)
 
     def interact(self):
         """Handle user-initiated interaction with the character."""
@@ -319,14 +324,15 @@ class SelfAwareCharacter:
         if not building:
             return False
 
-        # Calculate distance to building
-        character_center = (self.position[0] + self.size[0] // 2,
-                           self.position[1] + self.size[1] // 2)
-        building_center = (building.position[0] + building.size[0] // 2,
-                          building.position[1] + building.size[1] // 2)
-
-        dx = character_center[0] - building_center[0]
-        dy = character_center[1] - building_center[1]
+        # Distance from the character's centre to the building's rectangle (0 inside it).
+        # Buildings can't be entered, so measuring to the building's centre would make large
+        # buildings such as the 500x500 snake game unreachable.
+        cx = self.position[0] + self.size[0] // 2
+        cy = self.position[1] + self.size[1] // 2
+        bx, by = building.position
+        bw, bh = building.size
+        dx = max(bx - cx, 0, cx - (bx + bw))
+        dy = max(by - cy, 0, cy - (by + bh))
         distance = math.sqrt(dx*dx + dy*dy)
 
         # Character is "near" if within 100 pixels
